@@ -1,0 +1,129 @@
+1 The SAS System                                                                                    08:21 Wednesday, August 31, 2016
+
+NOTE: Copyright (c) 2002-2012 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M0) 
+      Licensed to CORNELL UNIVERSITY-T&R, Site 70084769.
+NOTE: This session is executing on the Linux 3.16.7-29-desktop (LIN X64) platform.
+
+
+
+NOTE: Updated analytical products:
+      
+      SAS/STAT 12.3 (maintenance)
+      SAS/ETS 12.3 (maintenance)
+      SAS/OR 12.3 (maintenance)
+      SAS/IML 12.3 (maintenance)
+      SAS/QC 12.3 (maintenance)
+
+NOTE: Additional host information:
+
+ Linux LIN X64 3.16.7-29-desktop #1 SMP PREEMPT Fri Oct 23 00:46:04 UTC 2015 (6be6a97) x86_64 openSUSE 13.2 (x86_64) VERSION = 13.2 
+      CODENAME = Harlequin 
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.05 seconds
+      cpu time            0.02 seconds
+      
+
+NOTE: AUTOEXEC processing beginning; file is /home/vilhuber/autoexec.sas.
+
+NOTE: Libref HERE was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /mnt/local/slow_home/vilhuber/Workspace-non-encrypted/git/toyfirms
+
+NOTE: AUTOEXEC processing completed.
+
+1          /* basic parameters */
+2          %let indcnt=100;
+3          %let maxestabcnt=10000;
+4          %let minestabcnt=100;
+5          %let seed1=123456;
+6          
+7          %let maxemp=42000;
+2 The SAS System                                                                                    08:21 Wednesday, August 31, 2016
+
+8          %let minemp=1;
+9          %let seed2=1234567;
+10         
+11         /* draw estab count distribution across industries*/
+12         /* use log normal */
+13         data industries;
+14           do industry = 1 to &indcnt.;
+15           estabs= exp(ranuni(&seed1.)*(log(&maxestabcnt.)-log(&minestabcnt.)) + log(&minestabcnt.));
+16           output;
+17           end;
+18           run;
+
+NOTE: The data set WORK.INDUSTRIES has 100 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+19         
+20           proc univariate data=industries;
+21           var estabs;
+22           run;
+
+NOTE: The PROCEDURE UNIVARIATE printed pages 1-2.
+NOTE: PROCEDURE UNIVARIATE used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.02 seconds
+      
+
+23         
+24         /* now draw employment for each estab in each industry */
+25         
+26         data fakelbd;
+27           set industries;
+28           by industry;
+29           drop i;
+30           do i=1 to estabs;
+31             emp= exp(ranuni(&seed2.)*(log(&maxemp.)-log(&minemp.)) + log(&minemp.));
+32             output;
+33           end;
+34         run;
+
+NOTE: There were 100 observations read from the data set WORK.INDUSTRIES.
+NOTE: The data set WORK.FAKELBD has 184559 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.03 seconds
+      
+
+35         
+36         proc univariate data=fakelbd;
+37         var emp;
+38         run;
+
+NOTE: The PROCEDURE UNIVARIATE printed pages 3-4.
+NOTE: PROCEDURE UNIVARIATE used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.10 seconds
+3 The SAS System                                                                                    08:21 Wednesday, August 31, 2016
+
+      
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           0.24 seconds
+      cpu time            0.17 seconds
+      

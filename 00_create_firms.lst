@@ -1,0 +1,146 @@
+The SAS System                                                                                  08:21 Wednesday, August 31, 2016   1
+
+The UNIVARIATE Procedure
+Variable:  estabs
+
+                            Moments
+
+N                         100    Sum Weights                100
+Mean               1846.13512    Sum Observations    184613.512
+Std Deviation      2341.49356    Variance            5482592.07
+Skewness           1.73309641    Kurtosis            2.04738979
+Uncorrected SS      883598105    Corrected SS         542776615
+Coeff Variation    126.832187    Std Error Mean      234.149356
+
+
+              Basic Statistical Measures
+ 
+    Location                    Variability
+
+Mean     1846.135     Std Deviation               2341
+Median    869.328     Variance                 5482592
+Mode         .        Range                       8684
+                      Interquartile Range         2251
+
+
+           Tests for Location: Mu0=0
+ 
+Test           -Statistic-    -----p Value------
+
+Student's t    t  7.884434    Pr > |t|    <.0001
+Sign           M        50    Pr >= |M|   <.0001
+Signed Rank    S      2525    Pr >= |S|   <.0001
+
+
+Quantiles (Definition 5)
+ 
+Quantile       Estimate
+
+100% Max       8800.260
+99%            8702.752
+95%            7876.279
+90%            6046.055
+75% Q3         2518.238
+50% Median      869.328
+25% Q1          267.689
+10%             141.917
+5%              121.192
+1%              117.326
+0% Min          116.185
+
+
+           Extreme Observations
+ 
+------Lowest-----        -----Highest-----
+ 
+   Value      Obs           Value      Obs
+
+ 116.185       56         8035.85       18
+ 118.468        7         8283.18       12
+ 120.334       10         8568.23       79
+The SAS System                                                                                  08:21 Wednesday, August 31, 2016   2
+
+The UNIVARIATE Procedure
+Variable:  estabs
+
+           Extreme Observations
+ 
+------Lowest-----        -----Highest-----
+ 
+   Value      Obs           Value      Obs
+
+ 120.537       70         8605.24       97
+ 120.933       58         8800.26       63
+The SAS System                                                                                  08:21 Wednesday, August 31, 2016   3
+
+The UNIVARIATE Procedure
+Variable:  emp
+
+                            Moments
+
+N                      184559    Sum Weights             184559
+Mean               3922.52443    Sum Observations     723937186
+Std Deviation      8176.39295    Variance            66853401.7
+Skewness           2.65794563    Kurtosis            6.65260119
+Uncorrected SS      1.5178E13    Corrected SS        1.23383E13
+Coeff Variation    208.447215    Std Error Mean      19.0324256
+
+
+              Basic Statistical Measures
+ 
+    Location                    Variability
+
+Mean     3922.524     Std Deviation               8176
+Median    203.913     Variance                66853402
+Mode         .        Range                      41998
+                      Interquartile Range         2887
+
+
+           Tests for Location: Mu0=0
+ 
+Test           -Statistic-    -----p Value------
+
+Student's t    t  206.0969    Pr > |t|    <.0001
+Sign           M   92279.5    Pr >= |M|   <.0001
+Signed Rank    S  8.5156E9    Pr >= |S|   <.0001
+
+
+ Quantiles (Definition 5)
+ 
+Quantile          Estimate
+
+100% Max       41999.30815
+99%            37699.01577
+95%            24575.87793
+90%            14383.44823
+75% Q3          2901.27081
+50% Median       203.91329
+25% Q1            14.07426
+10%                2.87247
+5%                 1.68242
+1%                 1.11320
+0% Min             1.00008
+
+
+           Extreme Observations
+ 
+------Lowest-----        -----Highest-----
+ 
+   Value      Obs           Value      Obs
+
+ 1.00008   141550         41988.0   166151
+ 1.00015    69556         41989.4    34022
+ 1.00024   161686         41989.6    46252
+The SAS System                                                                                  08:21 Wednesday, August 31, 2016   4
+
+The UNIVARIATE Procedure
+Variable:  emp
+
+           Extreme Observations
+ 
+------Lowest-----        -----Highest-----
+ 
+   Value      Obs           Value      Obs
+
+ 1.00024    86422         41990.5   180464
+ 1.00025    84768         41999.3    41707
