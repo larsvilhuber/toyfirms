@@ -1,0 +1,124 @@
+---
+title: "Toy firms"
+author: "Lars Vilhuber"
+format: 
+  html:
+    keep-md: true
+
+editor: source
+---
+
+
+A toy example of generating a somewhat plausible distribution of
+
+- establishments across industries
+- employment across establishments
+
+Might still want to add payroll to approxmate the (Syn)LBD.
+
+> A SAS version is available in directory [sas](sas/).
+
+```{r setup,include=FALSE}
+# Translation by Claude Sonnet 3.5
+# Edits by Lars Vilhuber
+library(knitr)
+library(rprojroot)
+basedir <- rprojroot::find_root(rprojroot::is_git_root)
+indfig.png <- file.path(basedir,"ind-estab-counts.png")
+sizefig.png <- file.path(basedir,"estab-size-dist.png")
+```
+
+## Basic parameters
+
+```{r}
+# Number of industries
+indcnt <- 100
+# Largest number of establishments per industry
+maxestabcnt <- 10000
+# Smallest industry
+minestabcnt <- 100
+seed1 <- 123456
+
+# For any establishment, largest size
+maxemp <- 42000
+# smallest estab size
+minemp <- 1
+seed2 <- 1234567
+
+```
+
+Draw establishment count distribution across industries
+- Use log normal distribution
+- Set seeds for reproducibility
+
+```{r}
+
+set.seed(seed1)
+
+# 
+industries <- data.frame(
+  industry = 1:indcnt,
+  estabs = exp(runif(indcnt) * (log(maxestabcnt) - log(minestabcnt)) + log(minestabcnt))
+)
+
+```
+
+# Summary statistics for estabs
+
+```{r, results='asis'}
+summary(industries$estabs) -> estabs_summary 
+data.frame(
+  Statistic = names(estabs_summary),
+  Value = as.numeric(estabs_summary)) |>  kable()
+```
+
+```{r}
+indfig <- hist(industries$estabs, main="Distribution of Establishments", xlab="Number of Establishments")
+```
+
+
+```{r,include=FALSE}
+png(filename=indfig.png)
+indfig
+dev.off()
+```
+
+
+# Employment for each establishment in each industry
+
+```{r}
+
+set.seed(seed2)
+
+fakelbd <- do.call(rbind, lapply(1:nrow(industries), function(i) {
+  data.frame(
+    industry = industries$industry[i],
+    emp = exp(runif(industries$estabs[i]) * (log(maxemp) - log(minemp)) + log(minemp))
+  )
+}))
+
+```
+
+# Summary statistics for Employment (Establishment size)
+```{r, results='asis'}
+# For the employment summary
+emp_summary <- summary(fakelbd$emp)
+data.frame(
+  Statistic = names(emp_summary),
+  Value = as.numeric(emp_summary)
+) |> kable(caption = "Summary of Employment")
+
+
+```
+
+```{r}
+sizefig <- hist(fakelbd$emp, main="Distribution of Employment", xlab="Number of Employees")
+```
+
+
+```{r,include=FALSE}
+png(filename=sizefig.png)
+sizefig
+dev.off()
+
+```
